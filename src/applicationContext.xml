@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	                       http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+	<!-- 
+			bean实例化三种方式：
+			
+					1. 用构造器来实例化 （掌握）
+					2. 使用静态工厂方法实例化 （理解）
+					3. 使用实例工厂方法实例化 （理解）
+	 -->
+	 <!--  
+	 	1. 用构造器来实例化 （掌握）:使用class的默认无参构造函数实例化
+		   IUserDao userDao = new UserDaoImpl();
+	  -->
+	<bean id="userDao" class="spring.UserDaoImpl"></bean>
+	
+	<!-- 
+		2. 使用 静态工厂方法实例化 （理解） 
+		   IUserDao userDao2 = DaoStaticFactory.createUserDao();
+	-->
+	<bean id="userDao2" class="spring.factory.DaoStaticFactory" factory-method="createUserDao"></bean>
+	
+	<!-- 
+		3. 使用实例工厂方法实例化 （理解） 
+		   DaoNonStaticFactory factory = new DaoNonStaticFactory();
+		   IUserDao userDao3 = factory.createUserDao();
+	-->
+	<bean id="factory" class="spring.factory.DaoNonStaticFactory"></bean>
+	<bean id="userDao3" factory-bean="factory"  factory-method="createUserDao"></bean>
+
+</beans>
